@@ -1,0 +1,20 @@
+version 1.0 (release)
+
+
+
+
+HOW TO PLAY
+
+to get airable land that is plains you need to get water on it.
+you can only get food from farming, berries, and hunting. you can only get berries from a berry farm (late game) or forests
+forests can only be rebuilt if you have saplings which are hard to get
+
+FARM DATA
+
+people need 1 food per turn
+every turn each farm tile makes 5 food
+21 farms to feed the entire population
+
+HUNTING DATA
+
+each hunting trip can bring between 30 and 90 food

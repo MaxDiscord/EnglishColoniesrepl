@@ -16,9 +16,10 @@ while True:
     mainInput = input ("> ")
     if mainInput = ("w"):
         x = x - 1
-    elif mainInput = ("e"):
+    elif mainInput == ("e"):
         x = x + 1
-    elif mainInput = ("n"):
+    elif mainInput == ("n"):
         y = y + 1
-    elif mainInput = ("s"):
+    elif mainInput == ("s"):
         y = y - 1
+	elif mainInput == ("gather wood")
