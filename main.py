@@ -23,45 +23,22 @@ berrymap = [["Berries" for locx in range(maxx)]for locy in range(maxy)]
 print ("You have landed on a",naturemap[locx][locy],"tile. It looks like there is forest all around you")
 print ("All",population," people that survived the journey voted and they voted to stay and make the colony here.")
 while True:
-    
-    
-    
+    for y in range(maxx):
+        for x in range(maxy):
+            if naturemap[x][y] == "Forest":
+                print ("x",end=" ")
+            elif naturemap[x][y] == "Plains":
+                print ("u",end= " ")
+            if naturemap[locx][locy] == naturemap[x][y]:
+                print ("o",end= " ")
+        print("")
+
     print ("Wood:",wood)
     print ("Food:",food)
-    print ("Population:",population)
+    print ("Population:",population)a
     print ("Water:",water)
     mainInput = input ("> ")
-    if mainInput == "naturemap":
-        for y in range(maxx):
-            for x in range(maxy):
-                if naturemap[x][y] == "Forest":
-                    if y==locy and x==locx:
-                        print ("X",end=" ")
-                    else:
-                        print ("x",end=" ")
-                elif naturemap[x][y] == "Plains":
-                    if y==locy and x==locx:
-                        print ("U",end=" ")
-                    else:
-                        print ("u",end=" ")
-        print("")
-    elif mainInput == "colonymap":
-        for y in range(maxx):
-            for x in range(maxy):
-                if colonymap[x][y] == "Town Hall":
-                    if y==locy and x==locx:
-                        print ("S",end=" ")
-                    else:
-                        print ("s",end=" ")
-                elif colonymap[x][y] == "House":
-                    if y==locy and x==locx:
-                        print ("L",end=" ")
-                    else:
-                        print ("l",end=" ")
-                elif colonymap[x][y] == "Farm":
-                    if y==locy and x==locx:
-                        print ("F", end=" ")
-    elif mainInput == ("w"):
+    if mainInput == ("w"):
         locx = locx - 1
     elif mainInput == ("e"):
         locx = locx + 1
@@ -71,7 +48,7 @@ while True:
         locy = locy + 1
     elif mainInput == ("gather wood"):
         if naturemap[locx][locy] == "Plains":
-            print ("You cannot cut down wood on a plains tile")    
+            print ("You cannot cut down wood on a plains tile")
         else:
             naturemap[locx][locy] = "Plains"
             wood = wood + 5
@@ -101,7 +78,7 @@ while True:
                             print("You loose")
                             sys.exit()
 
-    
+
     food = food - population
     food = food + foodperturn
     turn = turn + 1
@@ -114,14 +91,3 @@ while True:
     if deadcrop == 5:
         food = food - foodperturn
         print ("Your crops died")
-			
-
-				
-		
-                
-                
-                       
-            
-                       
-            
-    
