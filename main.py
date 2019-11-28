@@ -56,7 +56,6 @@ while True:
         elif build == ("farm"):
             if naturemap[locx][locy] == "Forest":
                 print ("You cannot build a farm here")
-        elif
             else:
                 naturemap[locx][locy] == "Farm"
                 if food < population:
