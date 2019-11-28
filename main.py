@@ -1,7 +1,9 @@
+
 import sys
 import random
 import time
 wood = 0
+clinic = False
 food = 0
 population = 10
 water = 0
@@ -23,29 +25,74 @@ berrymap = [["Berries" for locx in range(maxx)]for locy in range(maxy)]
 print ("You have landed on a",naturemap[locx][locy],"tile. It looks like there is forest all around you")
 print ("All",population," people that survived the journey voted and they voted to stay and make the colony here.")
 while True:
-    for y in range(maxx):
-        for x in range(maxy):
-            if naturemap[x][y] == "Forest":
-                print ("x",end=" ")
-            elif naturemap[x][y] == "Plains":
-                print ("u",end= " ")
-            if naturemap[locx][locy] == naturemap[x][y]:
-                print ("o",end= " ")
-        print("")
-
     print ("Wood:",wood)
     print ("Food:",food)
-    print ("Population:",population)a
+    print ("Population:",population)
     print ("Water:",water)
     mainInput = input ("> ")
-    if mainInput == ("w"):
-        locx = locx - 1
+    if mainInput == "naturemap":
+        for y in range(maxx):
+            for x in range(maxy):
+                if naturemap[x][y] == "Forest":
+                    if y==locy and x==locx:
+                        print ("X",end=" ")
+                    else:
+                        print ("x",end=" ")
+                elif naturemap[x][y] == "Plains":
+                    if y==locy and x==locx:
+                        print ("U",end=" ")
+                    else:
+                        print ("u",end=" ")
+            print("")
+    elif mainInput == "colonymap":
+        for y in range(maxx):
+            for x in range(maxy):
+                if colonymap[x][y] == "Town Hall":
+                    if y==locy and x==locx:
+                        print ("S",end=" ")
+                    else:
+                        print ("s",end=" ")
+                elif colonymap[x][y] == "House":
+                    if y==locy and x==locx:
+                        print ("L",end=" ")
+                    else:
+                        print ("l",end=" ")
+                elif colonymap[x][y] == "Farm":
+                    if y==locy and x==locx:
+                        print ("F", end=" ")
+                    else:
+                        print ("f", end= " ")
+                elif colonymap[x][y] == "Clinic":
+                    if y ==locy and x ==locx:
+                        print ("H", end=" ")
+                    else:
+                        print ("h", end= " ")
+                else:
+                    if y==locy and x==locx:
+                        print ("O",end= " ")
+                    else:
+                        print ("o", end = " ")
+            print("")
+    elif mainInput == ("w"):
+        if locx>0:
+            locx = locx - 1
+        else:
+            print("You can't go that way.")
     elif mainInput == ("e"):
-        locx = locx + 1
+        if locx<maxx-1:
+            locx = locx + 1
+        else:
+            print("You can't go that way.")
     elif mainInput == ("n"):
-        locy = locy - 1
+        if locy>0:
+            locy = locy - 1
+        else:
+            print("You can't go that way.")
     elif mainInput == ("s"):
-        locy = locy + 1
+        if locy<maxy-1:
+            locy = locy + 1
+        else:
+            print("You can't go that way.")
     elif mainInput == ("gather wood"):
         if naturemap[locx][locy] == "Plains":
             print ("You cannot cut down wood on a plains tile")
@@ -66,9 +113,13 @@ while True:
             popmax = popmax + 10
         elif build == ("farm"):
             if naturemap[locx][locy] == "Forest":
+        elif build == ("clinic"):
+            clinic = True
+            colonymap[locx][locy] = "Clinic"
                 print ("You cannot build a farm here")
+
             else:
-                colonymap[locx][locy] == "Farm"
+                colonymap[locx][locy] = "Farm"
                 foodperturn = foodperturn + 10
                 if food < population:
                     print ("People are starving")
@@ -78,7 +129,24 @@ while True:
                             print("You loose")
                             sys.exit()
 
-
+    sick = random.randint(1,27)
+    if sick == 21:
+        print ("someone is sick")
+        if clinic == True:
+            print ("You have a clinic.")
+            die = random.randint(1,6)
+            if die == 3:
+                print ("That person died :(")
+                population = population - 1
+            else:
+                print ("He is no longer sick. He is no longer sick.")
+        else:
+            death = random.randint(1,2)
+            if death == 2:
+                print ("That person died")
+                population = population - 1
+            else:
+                print ("He got lucky,he is no longer sick.")
     food = food - population
     food = food + foodperturn
     turn = turn + 1
