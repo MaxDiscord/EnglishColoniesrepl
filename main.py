@@ -12,6 +12,7 @@ maxy = 20
 popmax = 0
 turn = 1
 birthturn = 1
+season = 1
 starvingturn = 0
 townhall = False
 naturemap = [["Forest" for locx in range(maxx)] for y in range(maxy)]
@@ -55,6 +56,7 @@ while True:
         elif build == ("farm"):
             if naturemap[locx][locy] == "Forest":
                 print ("You cannot build a farm here")
+        elif
             else:
                 naturemap[locx][locy] == "Farm"
                 if food < population:
@@ -71,6 +73,7 @@ while True:
         if birthturn == 10:
             population = population + 1
             birthturn = 1
+            season = season + 1
         deadcrop = random.randint(1,30)
         if deadcrop == 5:
             food = food - foodperturn
@@ -81,4 +84,8 @@ while True:
 		
                 
                 
-                
+                       
+            
+                       
+            
+    
