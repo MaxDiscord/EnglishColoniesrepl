@@ -2,34 +2,18 @@ import sys
 import random
 import time
 wood = 0
-clinic = False
 food = 0
 population = 10
 water = 0
-locx = 5
-locy = 5
-maxx = 9
-maxy = 9
+locx = 10
+locy = 10
+maxx = 20
+maxy = 20
 popmax = 0
 turn = 1
 birthturn = 1
 season = 1
 starvingturn = 0
-foodperturn = 0
-
-        
-save = open ("kaigame.txt","r+")
-havesave = input ("Do you have a save")
-if havesave == "yes":
-    readSave=save.read()
-    splitSave =readSave.split("\n")
-    population = int(splitSave[0])
-    food=int(splitSave[1])
-    wood=int(splitSave[2])
-    clinic=bool(splitSave[3])
-    townhall=bool(splitSave[4])
-    
-        
 townhall = False
 naturemap = [["Forest" for locx in range(maxx)] for y in range(maxy)]
 naturemap[locx][locy] = "Plains"
@@ -43,72 +27,17 @@ while True:
     print ("Population:",population)
     print ("Water:",water)
     mainInput = input ("> ")
-    if mainInput == "naturemap":
-        for y in range(maxx):
-            for x in range(maxy):
-                if naturemap[x][y] == "Forest":
-                    if y==locy and x==locx:
-                        print ("X",end=" ")
-                    else:
-                        print ("x",end=" ")
-                elif naturemap[x][y] == "Plains":
-                    if y==locy and x==locx:
-                        print ("U",end=" ")
-                    else:
-                        print ("u",end=" ")
-            print("")
-    elif mainInput == "colonymap":
-        for y in range(maxx):
-            for x in range(maxy):
-                if colonymap[x][y] == "Town Hall":
-                    if y==locy and x==locx:
-                        print ("S",end=" ")
-                    else:
-                        print ("s",end=" ")
-                elif colonymap[x][y] == "House":
-                    if y==locy and x==locx:
-                        print ("L",end=" ")
-                    else:
-                        print ("l",end=" ")
-                elif colonymap[x][y] == "Farm":
-                    if y==locy and x==locx:
-                        print ("F", end=" ")
-                    else:
-                        print ("f", end= " ")
-                elif colonymap[x][y] == "Clinic":
-                    if y ==locy and x ==locx:
-                        print ("H", end=" ")
-                    else:
-                        print ("h", end= " ")
-                else:
-                    if y==locy and x==locx:
-                        print ("O",end= " ")
-                    else:
-                        print ("o", end = " ")
-            print("")
-    elif mainInput == ("w"):
-        if locx>0:
-            locx = locx - 1
-        else:
-            print("You can't go that way.")
+    if mainInput == ("w"):
+        locx = locx - 1
     elif mainInput == ("e"):
-        if locx<maxx-1:
-            locx = locx + 1
-        else:
-            print("You can't go that way.")
+        locx = locx + 1
     elif mainInput == ("n"):
-        if locy>0:
-            locy = locy - 1
-        else:
-            print("You can't go that way.")
+        locy = locy - 1
     elif mainInput == ("s"):
-        if locy<maxy-1:
-            locy = locy + 1
-        else:
-            print("You can't go that way.")
+        locy = locy + 1
     elif mainInput == ("gather wood"):
         if naturemap[locx][locy] == "Plains":
-            print ("You cannot cut down wood on a plains tile")
+            print ("You cannot cut down wood on a plains tile")    
         else:
             naturemap[locx][locy] = "Plains"
             wood = wood + 5
@@ -128,8 +57,7 @@ while True:
             if naturemap[locx][locy] == "Forest":
                 print ("You cannot build a farm here")
             else:
-                colonymap[locx][locy] = "Farm"
-                foodperturn = foodperturn + 10
+                naturemap[locx][locy] == "Farm"
                 if food < population:
                     print ("People are starving")
                     print ("You have 3 turns to fix it")
@@ -137,59 +65,15 @@ while True:
                     if starvingturn == 3:
                             print("You loose")
                             sys.exit()
-        elif build == ("clinic"):
-            clinic = True
-            colonymap[locx][locy] = "Clinic"
-            print ("You cannot build a farm here")
-    elif mainInput == "quit":
-        saveet = input ("Do you want to save your game")
-        if saveet == "yes":
-            population = str(population)
-            food = str(food)
-            wood = str(wood)
-            clinic = str(clinic)
-            townhall = str(townhall)
-            save.write(population)
-            save.write("\n")
-            save.write(food)
-            save.write("\n")
-            save.write(wood)
-            save.write("\n")
-            save.write(clinic)
-            save.write("\n")
-            save.write(townhall)
-            save.close()
-            sys.exit()
-
-
-
-    sick = random.randint(1,27)
-    if sick == 21:
-        print ("someone is sick")
-        if clinic == True:
-            print ("You have a clinic.")
-            die = random.randint(1,6)
-            if die == 3:
-                print ("That person died :(")
-                population = population - 1
-            else:
-                print ("He is no longer sick. He is no longer sick.")
-        else:
-            death = random.randint(1,2)
-            if death == 2:
-                print ("That person died")
-                population = population - 1
-            else:
-                print ("He got lucky,he is no longer sick.")
-    food = food - population
-    food = food + foodperturn
-    turn = turn + 1
-    birthturn = birthturn + 1
-    if birthturn == 10:
-        population = population + 1
-        birthturn = 1
-        season = season + 1
-    deadcrop = random.randint(1,30)
-    if deadcrop == 5:
-        food = food - foodperturn
-        print ("Your crops died")
+        foodperturn = foodperturn + 10
+        food = food - population
+        turn = turn + 1
+        birthturn = birthturn + 1
+        if birthturn == 10:
+            population = population + 1
+            birthturn = 1
+            season = season + 1
+        deadcrop = random.randint(1,30)
+        if deadcrop == 5:
+            food = food - foodperturn
+            print ("Your crops died")
