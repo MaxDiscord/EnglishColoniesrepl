@@ -1,4 +1,3 @@
-
 import sys
 import random
 import time
@@ -17,6 +16,17 @@ birthturn = 1
 season = 1
 starvingturn = 0
 foodperturn = 0
+
+        
+save = open ("kaigame.txt","r+")
+havesave = input ("Do you have a save")
+if havesave == "yes":
+    readSave=save.read()
+    splitSave =readSave.split("\n")
+    population = splitSave[0]
+    food=splitSave[1]
+    wood=splitSave[2]
+        
 townhall = False
 naturemap = [["Forest" for locx in range(maxx)] for y in range(maxy)]
 naturemap[locx][locy] = "Plains"
@@ -113,11 +123,7 @@ while True:
             popmax = popmax + 10
         elif build == ("farm"):
             if naturemap[locx][locy] == "Forest":
-        elif build == ("clinic"):
-            clinic = True
-            colonymap[locx][locy] = "Clinic"
                 print ("You cannot build a farm here")
-
             else:
                 colonymap[locx][locy] = "Farm"
                 foodperturn = foodperturn + 10
@@ -128,6 +134,26 @@ while True:
                     if starvingturn == 3:
                             print("You loose")
                             sys.exit()
+        elif build == ("clinic"):
+            clinic = True
+            colonymap[locx][locy] = "Clinic"
+            print ("You cannot build a farm here")
+    elif mainInput == "quit":
+        saveet = input ("Do you want to save your game")
+        if saveet == "yes":
+            population = str(population)
+            food = str(food)
+            wood = str(wood)
+            save.write(population)
+            save.write("\n")
+            save.write(food)
+            save.write("\n")
+            save.write(wood)
+            save.write("\n")
+            save.close()
+            sys.exit()
+
+
 
     sick = random.randint(1,27)
     if sick == 21:
