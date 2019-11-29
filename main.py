@@ -23,9 +23,12 @@ havesave = input ("Do you have a save")
 if havesave == "yes":
     readSave=save.read()
     splitSave =readSave.split("\n")
-    population = splitSave[0]
-    food=splitSave[1]
-    wood=splitSave[2]
+    population = int(splitSave[0])
+    food=int(splitSave[1])
+    wood=int(splitSave[2])
+    clinic=bool(splitSave[3])
+    townhall=bool(splitSave[4])
+    
         
 townhall = False
 naturemap = [["Forest" for locx in range(maxx)] for y in range(maxy)]
@@ -144,12 +147,17 @@ while True:
             population = str(population)
             food = str(food)
             wood = str(wood)
+            clinic = str(clinic)
+            townhall = str(townhall)
             save.write(population)
             save.write("\n")
             save.write(food)
             save.write("\n")
             save.write(wood)
             save.write("\n")
+            save.write(clinic)
+            save.write("\n")
+            save.write(townhall)
             save.close()
             sys.exit()
 
