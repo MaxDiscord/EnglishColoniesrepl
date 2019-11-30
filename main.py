@@ -28,6 +28,21 @@ if havesave == "yes":
     wood=int(splitSave[2])
     clinic=bool(splitSave[3])
     townhall=bool(splitSave[4])
+    foodperturn = int (splitSave[5])
+    #naturemap
+    naturemap = splitSave[6].split(",")
+    naturemapbegin = naturemap[0].split("[")
+    naturemap.insert(0,naturemapbegin[1])
+    naturemapend = naturemap[81].split("]")
+    naturemap.insert(81,naturemapend[0])
+    #colonymap
+    colonymap = splitSave[7].split(",")
+    colonymapbegin = colonymap[0].split("[")
+    colonymap.insert(0,colonymapbegin[1])
+    colonymapend = colonymap[81].split("]")
+    colonymap.insert(81,colonymapend[0])
+else:
+    pass
     
         
 townhall = False
@@ -57,6 +72,8 @@ while True:
                     else:
                         print ("u",end=" ")
             print("")
+    elif mainInput == "gather water":
+        water = water + 5
     elif mainInput == "colonymap":
         for y in range(maxx):
             for x in range(maxy):
@@ -129,6 +146,7 @@ while True:
                 print ("You cannot build a farm here")
             else:
                 colonymap[locx][locy] = "Farm"
+                wood = wood - 1
                 foodperturn = foodperturn + 10
                 if food < population:
                     print ("People are starving")
@@ -139,8 +157,9 @@ while True:
                             sys.exit()
         elif build == ("clinic"):
             clinic = True
+            wood = wood - 10
+            food = food / 2
             colonymap[locx][locy] = "Clinic"
-            print ("You cannot build a farm here")
     elif mainInput == "quit":
         saveet = input ("Do you want to save your game")
         if saveet == "yes":
@@ -149,6 +168,9 @@ while True:
             wood = str(wood)
             clinic = str(clinic)
             townhall = str(townhall)
+            naturemap = str(naturemap)
+            colonymap=str(colonymap)
+            foodperturn=str(foodperturn)
             save.write(population)
             save.write("\n")
             save.write(food)
@@ -158,6 +180,12 @@ while True:
             save.write(clinic)
             save.write("\n")
             save.write(townhall)
+            save.write("\n")
+            save.write(foodperturn)
+            save.write("\n")
+            save.write(naturemap)
+            save.write("\n")
+            save.write(colonymap)
             save.close()
             sys.exit()
 
@@ -173,7 +201,7 @@ while True:
                 print ("That person died :(")
                 population = population - 1
             else:
-                print ("He is no longer sick. He is no longer sick.")
+                print ("He is no longer sick.")
         else:
             death = random.randint(1,2)
             if death == 2:
@@ -193,3 +221,10 @@ while True:
     if deadcrop == 5:
         food = food - foodperturn
         print ("Your crops died")
+        if food < population:
+            print ("People are starving")
+            print ("You have 3 turns to fix it")
+            starvingturn = starvingturn + 1
+            if starvingturn == 3:
+                    print("You loose")
+                    sys.exit()
